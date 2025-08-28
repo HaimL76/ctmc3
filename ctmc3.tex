@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{ctmc3}
+\author{Haim Lavi, 038712105}
+\date{August 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{}
+$dX_t=2X_tdB_t$, $X_0=3$
+
+Following a similar example by Oksendal, we solve by Ito and by Stratonovich.
+
+This is a private case of the general form $dX_t=\mu{X_t}dt+\sigma{X_t}dB_t$, where $\mu=0$ and $\sigma=2$.
+
+$X_t$ is not identically zero, so we divide both sides of the equation by $X_t$,
+
+$\frac{dX_t}{X_t}=2dB_t\Rightarrow\int_0^t\frac{dX_s}{X_s}=\int_0^t{2dB_s}=2\int_0^t{dB_s}=2B_t$.
+
+To calculate the integral we use Ito formula for the function $Y_t=\ln{X_t}$, 
+
+$dY_t=d\ln{X_t}=\frac{1}{X_t}\cdot{dX_t}+\frac{1}{2}(-\frac{1}{X_t^2})(dX_t)^2=\frac{dX_t}{X_t}-\frac{1}{2X_t^2}\cdot{4}X_t^2dt=\frac{dX_t}{X_t}-2dt\Rightarrow\frac{dX_t}{X_t}=dY_t+2dt\Rightarrow{Y_t=2B_t-2t+Y_0}\Rightarrow{\ln{X_t}-\ln_{}X_0}=2B_t-2t\Rightarrow\ln\frac{X_t}{X_0}=2B_t-2t\Rightarrow\frac{X_t}{X_0}=e^{2B_t-2t}\Rightarrow{X_t=3e^{2B_t-2t}}$
+
+By Stratonovich,
+
+$dX_t=\mu{X_t}dt+\sigma{X_t}\circ{dB_t}$, where $\mu=0$ and $\sigma=2$, and the solution is $X_t=3e^{2B_t}$
+\section{}
+$X_t=\cos(t+B_t)$
+
+Denote $f(t,B_t):=\cos(t+B_t)$. We calculate partial derivatives,
+
+$\frac{\partial{f}}{\partial{t}}=-\sin(t+B_t)$
+
+$\frac{\partial{f}}{\partial{B_t}}=-\sin(t+B_t)$
+
+$\frac{\partial{f}^2}{\partial^2{B_t}}=-\cos(t+B_t)$
+
+So by Ito,
+
+$dX_t=df(t,B_t)=[\frac{\partial{f}}{\partial{t}}+\frac{1}{2}\frac{\partial{f}^2}{\partial^2{B_t}}]dt+\frac{\partial{f}}{\partial{B_t}}dB_t=[-\sin(t+B_t)-\frac{1}{2}\cos(t+B_t)]dt-\sin(t+B_t)dB_t$
+\end{document}
