@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\renewcommand{\baselinestretch}{1.5}
 
 \title{ctmc3}
 \author{Haim Lavi, 038712105}
@@ -12,32 +13,33 @@
 \section{}
 $dX_t=2X_tdB_t$, $X_0=3$.
 
-We divide both sides of the equation by $X_t$,
+We divide both sides of the equation by $X_t\Rightarrow\frac{dX_t}{X_t}=2dB_t$.
 
-$\frac{dX_t}{X_t}=2dB_t$.
+We set $Y_y:=\ln{X_t}$, and calculate partial derivatives,
 
-When integrating the right hand expression, from $0$ to $t$, we get,
+$\frac{\partial{Y_n}}{\partial{t}}$ does not exist, because $Y_t$ depends only on $X_t$.
 
-$\int_0^t{2dB_2}=2\int_0^t{B_s}=2B_t$.
+$\frac{\partial{Y_t}}{\partial{X_t}}=\frac{\partial\ln{X_t}}{\partial{X_t}}=\frac{1}{X_t}$.
 
-We calculate the left hand integral by Ito,
-Setting $Y_t:=\ln{X_t}$, we get,
+$\frac{\partial^2{Y_t}}{\partial{X_t}^2}=\frac{\partial^2\ln{X_t}}{\partial{X_t}^2}=-\frac{1}{X_t^2}$.
 
-$dY_t=d\ln{X_t}=\frac{1}{X_t}dX_t+\frac{1}{2}\cdot-\frac{1}{X_t^2}(dX_t)^2=\frac{dX_t}{X_t}-\frac{1}{2X_t^2}(2X_tdB_t)^2=\frac{dX_t}{X_t}-\frac{4X_t^2(dB_t)^2}{2X_t^2}=2(dB_t)^2$.
+\noindent
+By Ito, we get,
+\[dY_t=d\ln{X_t}=\frac{1}{X_t}dX_t+\frac{1}{2}\cdot-\frac{1}{X_t^2}(dX_t)^2=\frac{dX_t}{X_t}-\frac{1}{2X_t^2}(2X_tdB_t)^2=\]\[=\frac{dX_t}{X_t}-\frac{4X_t^2(dB_t)^2}{2X_t^2}=\frac{dX_t}{X_t}-2(dB_t)^2.\]
 
-Using the identity $(dB_t)^2=dt$, and the equation $\frac{dX_t}{X_t}=2dB_t$, we get,
+We use the identity $(dB_t)^2=dt$, and the equation $\frac{dX_t}{X_t}=2dB_t$, and we get,
 
 $dY_t=d\ln{X_t}=\frac{dX_t}{X_t}-2dt=2dB_t-2dt$.
 
 We integrate both sides, and add the constant $Y_0=\ln{X_0}$,
 
-$Y_t=2B_t-2t+Y_0\Rightarrow{\ln{X_t}-\ln{X_0}=2B_t-2t}\Rightarrow\ln\frac{X_t}{X_0}=2B_t-2t\Rightarrow\frac{X_t}{X_0}=e^{2B_t-2t}\Rightarrow{X_t=X_0e^{2Bt-2t}}=3e^{2B_t-2t}$.
+\[Y_t=2B_t-2t+Y_0\Rightarrow{\ln{X_t}-\ln{X_0}=2B_t-2t}\Rightarrow\]\[\Rightarrow\ln\frac{X_t}{X_0}=2B_t-2t\Rightarrow\frac{X_t}{X_0}=e^{2B_t-2t}\Rightarrow{X_t=X_0e^{2Bt-2t}}=3e^{2B_t-2t}.\]
 \section{}
 $X_t=\cos(t+B_t)$.
 
 We reconstruct the equation using Ito.
 
-Denote $F(t,B_t)=X_t=\cos(t+B_t)$.
+Denote $F(t,B_t)=\cos(t+B_t)$.
 
 We calculate partial derivatives,
 
@@ -47,7 +49,13 @@ $\frac{\partial{F}}{\partial{B_t}}=-\sin(t+B_t)$.
 
 $\frac{\partial^2{F}}{\partial{B_t}^2}=-\cos(t+B_t)$.
 
-We get,
+Setting $F(t,B_t)=\cos(t,B_t)=X_t$, we get,
+\noindent
+\[dX_t=dF(t,B_t)=\frac{\partial{F}}{\partial{t}}dt+\frac{\partial{F}}{\partial{B_t}}dB_t+\frac{1}{2}\cdot\frac{\partial^2{F}}{\partial{B_t}^2}(dB_t)^2=\]\[=-\sin(t+B_t)dt-\sin(t+B_t)dB_t+\frac{1}{2}\cdot-\cos(t+B_t)(dB_t)^2=\]\[=[-\sin(t+B_t)-\frac{1}{2}\cos(t+B_t)]dt-\sin(t+B_t)dB_t.\]
 
-$dF(t,B_t)=dX_t=-\sin(t+B_t)dt+\frac{1}{2}\cdot-\cos(t+B_t)dt-\sin(t+B_t)dB_t$.
+But $\cos(t+B_t)=X_t\Rightarrow{-\sin(t+Bt)=-\sqrt{1-\cos^2(t+Bt)}}=-\sqrt{1-X_t^2}$.
+
+Hence, $dX_t=[-\sqrt{1-X_t^2}-\frac{1}{2}X_t]dt-\sqrt{1-X_t^2}dB_t$.
+\section{}
+
 \end{document}
