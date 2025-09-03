@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{amsfonts}
 \renewcommand{\baselinestretch}{1.5}
 
 \title{ctmc3}
@@ -17,7 +18,7 @@ We divide both sides of the equation by $X_t\Rightarrow\frac{dX_t}{X_t}=2dB_t$.
 
 We set $Y_y:=\ln{X_t}$, and calculate partial derivatives,
 
-$\frac{\partial{Y_n}}{\partial{t}}$ does not exist, because $Y_t$ depends only on $X_t$.
+$\frac{\partial{Y_n}}{\partial{t}}=\frac{\partial\ln{X_t}}{\partial{t}}=0$.
 
 $\frac{\partial{Y_t}}{\partial{X_t}}=\frac{\partial\ln{X_t}}{\partial{X_t}}=\frac{1}{X_t}$.
 
@@ -57,5 +58,54 @@ But $\cos(t+B_t)=X_t\Rightarrow{-\sin(t+Bt)=-\sqrt{1-\cos^2(t+Bt)}}=-\sqrt{1-X_t
 
 Hence, $dX_t=[-\sqrt{1-X_t^2}-\frac{1}{2}X_t]dt-\sqrt{1-X_t^2}dB_t$.
 \section{}
+$dX_t=(\alpha-\mu{X_t})dt+\sigma{dW_t}$, $\alpha,\mu,\sigma>0$, $X_0=\frac{\alpha}{\mu}$.
 
+We bring the equation to the form $dX_t=-\mu(X_t-\tilde\alpha)dt+\sigma{dW_t}$, 
+
+where $\tilde\alpha=\frac{\alpha}{\mu}$.
+
+Set $Y_t:=(X_t-\tilde\alpha)e^{\mu{t}}$.
+
+We calculate partial derivatives,
+
+$\frac{\partial{Y_t}}{\partial{t}}=\mu(X_t-\tilde\alpha)e^{\mu{t}}$.
+
+$\frac{\partial{Y_t}}{\partial{X_t}}=dX_te^{\mu{t}}$.
+
+$\frac{\partial^2{Y_t}}{\partial{X_t}^2}=\frac{\partial{e^{\mu{t}}}}{\partial{X_t}^2}dX_t=0$.
+
+Then by Ito, we get,
+
+$dY_t=\mu(X_t-\tilde\alpha)e^{-\mu{t}}dt+e^{-\mu{t}}dX_t$.
+
+But $dX_t=-\mu(X_t-\tilde\alpha)dt+\sigma{dW_t}\Rightarrow$
+
+\[\Rightarrow{dY_t=\mu(X_t-\tilde\alpha)e^{\mu{t}}dt+e^{\mu{t}}(-\mu(X_t-\tilde\alpha)dt+\sigma{dW_t})}=\]\[=\sigma{e^{\mu{t}}}dW_t\Rightarrow{Y_t=\int_0^t\sigma{e^{\mu{s}}}dW_s}+Y_0=\sigma\int_0^t{e^{\mu{s}}}dW_s+(X_0-\tilde\alpha)e^{\mu\cdot{0}}.\]
+
+But \[X_0=\frac{\alpha}{\mu}=\tilde\alpha\Rightarrow{Y_t=\sigma\int_0^t{e^{\mu{s}}}dW_s}\Rightarrow.\]
+
+But \[X_t=Y_t{e^{-\mu{t}}}+\tilde\alpha=e^{-\mu{t}}\sigma\int_0^t{e^{\mu{s}}dW_s}+\tilde\alpha.\]
+
+We calculate the expectation,
+
+\[\mathbb{E}[X_t]=\mathbb{E}[e^{-\mu{t}}\sigma\int_0^t{e^{\mu{s}}dW_s}+\tilde\alpha].\]
+
+But expectation is linear, so we get,
+
+\[\mathbb{E}[X_t]=\mathbb{E}[e^{-\mu{t}}\sigma\int_0^t{e^{\mu{s}}dW_s}]+\mathbb{E}[\tilde\alpha]=\sigma\mathbb{E}[\int_0^t{e^{\mu(s-t)}dW_s}]+\tilde\alpha.\]
+
+But the expectation of a Brownian motion is zero, so we get,
+
+$\mathbb{E}[X_t]=\tilde\alpha=\frac{\alpha}{\mu}$.
+
+This means that if we start at the mean value, then the expectation remains the same, which means that this process has the behavior of a martingale.
+
+\[Var(X_t)=\mathbb{E}[(X_t-\mathbb{E}[X_t])^2]=\mathbb{E}[(\sigma\int_0^t{e^{\mu(s-t)}}+\tilde\alpha-\tilde\alpha)^2]=\]\[=\mathbb{E}[(\sigma\int_0^t{e^{\mu(s-t)}})^2].\]
+
+But by Ito isometry, we get,
+\[Var(X_t)=\sigma^2\int_0^t{e^{2\mu(s-t)}}ds.\]
+
+But this is a standard integral, with no stochastic element, so we get,
+
+\[Var(X_t)=\frac{\sigma^2}{2\mu}[e^{2\mu(s-t)}]_0^t=\frac{\sigma^2}{2\mu}[e^{2\mu\cdot{t-t}}-e^{-2\mu{t}}]=\frac{\sigma}{2\mu}[1-e^{-2\mu{t}}].\]
 \end{document}
